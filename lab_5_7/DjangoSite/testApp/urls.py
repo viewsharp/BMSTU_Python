@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^$', ExampleView.as_view()),
     url(r'^order/(?P<id>\d+)', OrderView.as_view(), name='order_url'),
     url(r'^orders/', OrdersView.as_view()),
-
+    url(r'^reg/', registration),
+    url(r'^login/', login)
 ]

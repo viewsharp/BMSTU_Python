@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import View
+from .forms import *
 
 
 def function_view(request):
@@ -37,3 +38,23 @@ class OrderView(View):
             }
         }
         return render(request, 'order.html', data)
+
+
+def registration(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/login/')
+    else:
+        form = RegistrationForm()
+    return render(request, 'registration.html', {'form': form})
+
+
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/success/')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
