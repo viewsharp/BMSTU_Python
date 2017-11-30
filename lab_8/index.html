@@ -7,11 +7,48 @@
     <script src="jquery.flot.min.js"></script>
 </head>
 <body>
-<input class="from" type="text">
-<input class="to" type="text">
-<input class="func" type="text">
+<div style="max-width: 300px; margin: 60px auto">
+    <table>
+        <tr>
+            <td><label for="from">from</label></td>
+            <td><input id="from" type="text"></td>
+        </tr>
+        <tr>
+            <td><label for="to">to</label></td>
+            <td><input id="to" type="text"></td>
+        </tr>
+        <tr>
+            <td><label for="func">func</label></td>
+            <td><input id="func" type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button id="plot">Plot</button>
+            </td>
+        </tr>
+    </table>
+    <div id="output" style="height: 300px"></div>
+</div>
+<script>
+    $(function () {
+        var from = $('#from');
+        var to = $('#to');
+        var func = $('#func');
+        var out = $('#output');
 
-<button></button>
-<div class="output"></div>
+        $('#plot').click(function (event) {
+            event.preventDefault();
+            var array = [];
+            var start = parseFloat(from.val());
+            var end = parseFloat(to.val());
+            for (var x = start; x < end; x += (end - start) / 100) {
+                array.push([x, eval(func.val())]);
+            }
+            console.log(array);
+            $.plot(out, [array]);
+        })
+    })
+</script>
 </body>
 </html>
