@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+    <a href="{% url 'log_in' %}">Вход</a>
+    <a href="{% url 'sign_up' %}">Регистрация</a>
+{% endblock navbar %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+    <article class="container" style="padding: 60px 25%">
+        <h1>Главная</h1>
+    </article>
+{% endblock %}

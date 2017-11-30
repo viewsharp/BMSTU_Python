@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<header>
+    <nav class="grey-nav">
+        {% block navbar %}
+        {% endblock navbar %}
+    </nav>
+    <h1>Bookstall</h1>
+</header>
+<section>
+    {% block body %}
+
+    {% endblock %}
+</section>
+</body>
+</html>

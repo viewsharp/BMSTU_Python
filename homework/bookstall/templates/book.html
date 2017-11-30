@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    <a href="{% url 'logout' %}">Выход</a>
+{% endblock navbar %}
+
+{% block title %}Книги{% endblock %}
+
+{% block body %}
+    <article class="container" style="padding: 60px">
+        <h1 class="col-12">{{ book.title }}</h1>
+        <div class="row">
+            <img class="col-3" src="/{{ book.image }}">
+            <table>
+                <tr>
+                    <td>Автор:</td>
+                    <td>{{ book.author }}</td>
+                </tr>
+                <tr>
+                    <td>Год издания:</td>
+                    <td>{{ book.year }}</td>
+                </tr>
+            </table>
+        </div>
+    </article>
+{% endblock %}

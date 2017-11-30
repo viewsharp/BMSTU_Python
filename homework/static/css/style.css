@@ -1,0 +1,66 @@
+body {
+    background: #dddddd;
+}
+
+header {
+    height: 80px;
+    background: #002752;
+}
+
+header > h1 {
+    color: #ffffff;
+    padding: 17px;
+}
+
+article {
+    background: #ffffff;
+}
+
+label {
+    display: none;
+}
+
+input, button {
+    height: 48px;
+    padding: 0 24px;
+    border: 1px solid #bbb;
+    border-radius: 24px;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1282d3;
+}
+
+input[type=submit]:hover, input[type=button]:hover {
+    background: #eee;
+}
+
+nav {
+    float: right;
+    padding: 20px;
+}
+
+nav a {
+    color: #ffffff;
+    font-size: 16pt;
+    padding: 20px;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.boor-row {
+    padding: 30px;
+}
+
+.errorlist {
+    color: #a94442;
+}

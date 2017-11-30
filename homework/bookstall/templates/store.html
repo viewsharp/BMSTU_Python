@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    <a href="{% url 'logout' %}">Выход</a>
+{% endblock navbar %}
+
+{% block title %}Книги{% endblock %}
+
+{% block body %}
+    <article class="container" style="padding: 60px">
+        <h1>Книги в наличии:</h1>
+        <ul class="container">
+            {% for book in object_list %}
+                <li class="row boor-row">
+                    <img class="col-2" src="/{{ book.image }}">
+                    <div class="col">
+                        <a href="{% url 'books' book.id %}"><h2>{{ book.title }}</h2></a>
+                        <table>
+                            <tr>
+                                <td>Автор:</td>
+                                <td>{{ book.author }}</td>
+                            </tr>
+                            <tr>
+                                <td>Год издания:</td>
+                                <td>{{ book.year }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No articles yet.</li>
+            {% endfor %}
+        </ul>
+        {% if is_paginated %}
+            <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'store' %}?page={{ page_obj.previous_page_number }}">Предидущая.</a>
+                {% endif %}
+                <span class="page-current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'store' %}?page={{ page_obj.next_page_number }}">Следующая.</a>
+                {% endif %}
+            </span>
+            </div>
+        {% endif %}
+    </article>
+{% endblock %}
