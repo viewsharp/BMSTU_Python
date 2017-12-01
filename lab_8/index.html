@@ -5,6 +5,7 @@
     <title>Title</title>
     <script src="jquery-3.2.1.min.js"></script>
     <script src="jquery.flot.min.js"></script>
+    <script src="index.js"></script>
 </head>
 <body>
 <div style="max-width: 300px; margin: 60px auto">
@@ -30,25 +31,5 @@
     </table>
     <div id="output" style="height: 300px"></div>
 </div>
-<script>
-    $(function () {
-        var from = $('#from');
-        var to = $('#to');
-        var func = $('#func');
-        var out = $('#output');
-
-        $('#plot').click(function (event) {
-            event.preventDefault();
-            var array = [];
-            var start = parseFloat(from.val());
-            var end = parseFloat(to.val());
-            for (var x = start; x < end; x += (end - start) / 100) {
-                array.push([x, eval(func.val())]);
-            }
-            console.log(array);
-            $.plot(out, [array]);
-        })
-    })
-</script>
 </body>
 </html>

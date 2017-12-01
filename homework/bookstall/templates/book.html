@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block navbar %}
+    <a href="{% url 'store' %}">Книги</a>
     <a href="{% url 'logout' %}">Выход</a>
 {% endblock navbar %}
 
@@ -21,6 +22,21 @@
                     <td>Год издания:</td>
                     <td>{{ book.year }}</td>
                 </tr>
+                {% if book.count > 0 %}
+                    <tr>
+                        <td>Количество:</td>
+                        <td>{{ book.count }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="Взять">
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>Нет в наличае</td>
+                    </tr>
+                {% endif %}
             </table>
         </div>
     </article>

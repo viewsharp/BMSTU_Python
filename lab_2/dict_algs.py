@@ -3,10 +3,10 @@ ivan = {
     "age": 34,
     "children": [{
         "name": "vasja",
-        "age": 12,
+        "age": 102,
     }, {
         "name": "petja",
-        "age": 10,
+        "age": 102,
     }]
 }
 
@@ -15,10 +15,10 @@ darja = {
     "age": 41,
     "children": [{
         "name": "kirill",
-        "age": 21,
+        "age": 211,
     }, {
         "name": "pavel",
-        "age": 15,
+        "age": 151,
     }]
 }
 

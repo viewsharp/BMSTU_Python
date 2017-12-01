@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    <a href="{% url 'store' %}">Книги</a>
+    <a href="{% url 'logout' %}">Выход</a>
+{% endblock navbar %}
+
+{% block title %}Добавить книгу{% endblock %}
+
+{% block body %}
+    <article class="container" style="padding: 60px 25%">
+        <h1>Добавить книгу</h1>
+        <form action="" id="book_form">{% csrf_token %}
+            {{ form.as_p }}
+            <input id="send_book" type="submit" value="Добавить"/>
+        </form>
+        <br/><br/>
+        <h1>Добавить Автора</h1>
+        <form action="" id="author_form">{% csrf_token %}
+            {{ author_form.as_p }}
+            <input id="send_author" type="submit" value="Добавить"/>
+        </form>
+    </article>
+    <script>
+        var book = $('#book_form');
+        var autor = $('#author_form');
+
+        $('#send_book').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data: book.serialize(),
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+        });
+
+
+        $('#send_author').click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '',
+                data: book.serialize(),
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                }
+            })
+        });
+    </script>
+{% endblock %}

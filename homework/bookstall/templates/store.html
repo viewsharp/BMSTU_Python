@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block navbar %}
+    <a href="{% url 'add_book' %}">Добавить</a>
     <a href="{% url 'logout' %}">Выход</a>
 {% endblock navbar %}
 
@@ -9,7 +10,12 @@
 
 {% block body %}
     <article class="container" style="padding: 60px">
-        <h1>Книги в наличии:</h1>
+        <h1>Книги</h1>
+        <div>
+            <span>В наличии</span>
+            <div style="display: inline-block; padding: 3px; vertical-align: top;"><input type="checkbox" id="stock">
+            </div>
+        </div>
         <ul class="container">
             {% for book in object_list %}
                 <li class="row boor-row">
@@ -48,4 +54,39 @@
             </div>
         {% endif %}
     </article>
+    <script>
+
+        function getParameters() {
+            var result = {};
+            var sPageURL = decodeURIComponent(window.location.search.substring(1));
+            var sURLVariables = sPageURL.split('&');
+
+            sURLVariables.forEach(function (sURLVariable) {
+                var sParameterName = sURLVariable.split('=');
+                result[sParameterName[0]] = sParameterName[1];
+            });
+            return result;
+        }
+
+        $(function () {
+
+            var GET = getParameters();
+
+            var stock = $('#stock');
+
+            if (GET['stock'] === 'true')
+                stock.attr('checked', 'checked');
+
+
+            stock.change(function () {
+                if (stock.prop( "checked" )) {
+                    window.location.replace('{% url 'store' %}?stock=true');
+                }
+                else {
+                    window.location.replace('{% url 'store' %}');
+                }
+            })
+        });
+
+    </script>
 {% endblock %}

@@ -17,9 +17,10 @@ class Book(models.Model):
     author = models.ForeignKey(Author)
     image = models.ImageField(upload_to='static/books')
     year = models.IntegerField(default= None)
+    count = models.IntegerField(default= 0)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ('title', 'image')
+        ordering = ('title', 'image', 'year', 'count')
