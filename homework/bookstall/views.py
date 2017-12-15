@@ -66,7 +66,7 @@ class BookView(TemplateView):
     template_name = "book.html"
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {'book': Book.objects.get(id=id)})
+        return render(request, self.template_name, {'book': Book.objects.get(id=int(args[0]))})
 
 
 class AddBook(CreateView):
