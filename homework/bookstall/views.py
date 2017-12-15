@@ -22,8 +22,8 @@ class SignUp(FormView):
     form_class = UserCreateForm
     success_url = '/store/'
 
-    def form_valid(self, form):
-        return super(SignUp, self).form_valid(form)
+    # def form_valid(self, form):
+    #     return super(SignUp, self).form_valid(form)
 
 
 class LogIn(FormView):
