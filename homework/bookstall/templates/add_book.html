@@ -11,45 +11,47 @@
 {% block body %}
     <article class="container" style="padding: 60px 25%">
         <h1>Добавить книгу</h1>
-        <form action="" id="book_form">{% csrf_token %}
+        <form action="" id="book_form" method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
             {{ form.as_p }}
-            <input id="send_book" type="submit" value="Добавить"/>
+            <input type="submit" value="Добавить"/>
         </form>
-        <br/><br/>
-        <h1>Добавить Автора</h1>
-        <form action="" id="author_form">{% csrf_token %}
-            {{ author_form.as_p }}
-            <input id="send_author" type="submit" value="Добавить"/>
-        </form>
+        <br/>
+        <button type="button" data-toggle="modal" data-target="#exampleModal">
+            Добавить автора
+        </button>
     </article>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLabel">Добавить Автора</h1>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="author_form_d" method="post">
+                        {% csrf_token %}
+                        {{ author_form.as_p }}
+                        {#                <input id="send_author" type="submit" value="Добавить"/>#}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    {#                    <input id="" type="submit" value="Добавить" class="btn-primary"/>#}
+                    <button type="button" class="btn-primary" id="send_author" data-dismiss="modal">Добавить</button>
+
+                    <button type="button" class="btn-secondary" data-dismiss="modal">Закрыть</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        var book = $('#book_form');
-        var autor = $('#author_form');
-
-        $('#send_book').click(function (event) {
-            event.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '',
-                data: book.serialize(),
-                async: true,
-                success: function (data) {
-                    console.log(data);
-                }
-            })
-        });
-
-
         $('#send_author').click(function (event) {
             event.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '',
-                data: book.serialize(),
-                async: true,
-                success: function (data) {
-                    console.log(data);
-                }
+            var form = new FormData(document.getElementById('author_form_d'));
+            fetch('/store/order', {
+                method: 'post',
+                body: form
             })
         });
     </script>

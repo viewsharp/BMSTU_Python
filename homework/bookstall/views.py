@@ -7,13 +7,16 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.views.generic.base import TemplateView
 from django.utils.decorators import method_decorator
-import json
-from django.http import HttpResponseBadRequest, HttpResponse
-from braces.views import JSONResponseMixin, AjaxResponseMixin
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
+# import json
+# from django.http import HttpResponseBadRequest, HttpResponse
+# from braces.views import JSONResponseMixin, AjaxResponseMixin
 
 
 class FrontPage(TemplateView):
-
     template_name = "front.html"
 
 
@@ -27,7 +30,6 @@ class SignUp(FormView):
 
 
 class LogIn(FormView):
-
     template_name = 'log_in.html'
     form_class = AuthenticateForm
     success_url = '/store/'
@@ -44,7 +46,6 @@ class LogIn(FormView):
 
 @method_decorator(login_required, name='dispatch')
 class Store(ListView):
-
     model = Book
     template_name = 'store.html'
     paginate_by = 6
@@ -62,28 +63,54 @@ class Store(ListView):
 
 
 class BookView(TemplateView):
-
     template_name = "book.html"
+    form_class = Order
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {'book': Book.objects.get(id=int(args[0]))})
+        id = int(args[0])
+        form = self.form_class()
+        form.fields['book_id'].initial = id
+        return render(request, self.template_name, {'book': Book.objects.get(id=id),
+                                                    'form': form})
 
 
 class AddBook(CreateView):
-    # JSONResponseMixin, AjaxResponseMixin,
-
     template_name = "add_book.html"
     form_class = BookForm
+    success_url = '/store/'
 
-    # def get(self, request, *args, **kwargs):
-    #     return render(request, self.template_name, {'form': self.form_class(),
-    #                                                 'author_form': AuthorForm()})
-    #
-    # def post_ajax(self, request, *args, **kwargs):
-    #     form = BookForm(data= request.Post)
-    #     if form.is_valid():
-    #         form.save()
-    #         return None
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save()
+            return HttpResponseRedirect('{0}id{1}'.format(self.success_url, obj.id))
+        return render(request, self.template_name, {'form': form,
+                                                    'author_form': AuthorForm()})
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {'form': self.form_class(),
+                                                    'author_form': AuthorForm()})
+
+
+@csrf_exempt
+def add_author(request):
+    form = AuthorForm(data=request.POST)
+    if form.is_valid():
+        form.save()
+        return HttpResponse(status=201)
+    return HttpResponse(status=400)
+
+
+@csrf_exempt
+def order(request):
+    user = request.user
+    order = Order(data=request.POST)
+    if order.is_valid():
+        id = int(order.data['book_id'])
+        book = Book.objects.get(id=id)
+        book.order.add(user)
+        return HttpResponse(status=201)
+    return HttpResponse(status=400)
 
 
 def logout_view(request):

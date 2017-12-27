@@ -20,7 +20,7 @@ label {
     display: none;
 }
 
-input[type=email], input[type=submit], input[type=text], input[type=button], input[type=password], input[type=number], input[type=button], button, select {
+button, input[type=email], input[type=submit], input[type=text], input[type=button], input[type=password], input[type=number], input[type=button], button, select {
     height: 48px;
     padding: 0 24px;
     border: 1px solid #bbb;

@@ -25,20 +25,25 @@ class UserCreateForm(UserCreationForm):
 
 
 class AuthenticateForm(AuthenticationForm):
-
     username = CharField(required=True, widget=widgets.TextInput(attrs={'placeholder': 'Логин'}))
     password = CharField(required=True, widget=widgets.PasswordInput(attrs={'placeholder': 'Пароль'}))
 
 
 class BookForm(ModelForm):
     title = CharField(required=True, widget=widgets.TextInput(attrs={'placeholder': 'Название'}))
-    image = ImageField(required=True)
+    image = FileField(required=True)
     year = IntegerField(required=True, widget=widgets.NumberInput(attrs={'placeholder': 'Год издания'}))
     count = IntegerField(required=True, widget=widgets.NumberInput(attrs={'placeholder': 'Количество'}))
 
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = [
+            'title',
+            'author',
+            'image',
+            'year',
+            'count'
+        ]
 
 
 class AuthorForm(ModelForm):
@@ -48,3 +53,7 @@ class AuthorForm(ModelForm):
     class Meta:
         model = Author
         fields = '__all__'
+
+
+class Order(forms.Form):
+    book_id = IntegerField(required=True, widget=widgets.HiddenInput())

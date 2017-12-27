@@ -13,31 +13,46 @@
         <h1 class="col-12">{{ book.title }}</h1>
         <div class="row">
             <img class="col-3" src="/{{ book.image }}">
-            <table>
-                <tr>
-                    <td>Автор:</td>
-                    <td>{{ book.author }}</td>
-                </tr>
-                <tr>
-                    <td>Год издания:</td>
-                    <td>{{ book.year }}</td>
-                </tr>
+            <div class="col">
+                <table>
+                    <tr>
+                        <td>Автор:</td>
+                        <td>{{ book.author }}</td>
+                    </tr>
+                    <tr>
+                        <td>Год издания:</td>
+                        <td>{{ book.year }}</td>
+                    </tr>
+                    {% if book.count > 0 %}
+                        <tr>
+                            <td>Количество:</td>
+                            <td>{{ book.count }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>Нет в наличае</td>
+                        </tr>
+                    {% endif %}
+                </table>
                 {% if book.count > 0 %}
-                    <tr>
-                        <td>Количество:</td>
-                        <td>{{ book.count }}</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="button" value="Взять">
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td>Нет в наличае</td>
-                    </tr>
+                    <br/>
+                <form action="" method="post" id="order_form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input id="send_order" type="submit" value="Взять" style="max-width: 320px"/>
+                </form>
                 {% endif %}
-            </table>
+            </div>
         </div>
     </article>
+    <script>
+        $('#send_order').click(function (event) {
+            event.preventDefault();
+            var form = new FormData(document.getElementById('order_form'));
+            fetch('/store/order', {
+                method: 'post',
+                body: form
+            })
+        });
+    </script>
 {% endblock %}
