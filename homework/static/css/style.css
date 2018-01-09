@@ -65,3 +65,17 @@ ul {
 .errorlist {
     color: #a94442;
 }
+
+.orders > div:nth-child(odd) {
+    background: #dddddd;
+}
+
+.orders > div {
+    padding: 16px;
+    width: 500px;
+    margin: auto;
+}
+
+.orders > div:hover {
+    background: #bbbbbb;
+}

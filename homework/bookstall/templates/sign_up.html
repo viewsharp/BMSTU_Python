@@ -16,4 +16,18 @@
             <button type="submit">Зарегистрироваться</button>
         </form>
     </article>
+    <script>
+    var password1 = $('#id_password1');
+    var password2 = $('#id_password2');
+    password2.change(function () {
+        if (password1.val() !== password2.val()) {
+            password2.css('borderColor', 'red');
+            password2.attr('title', 'Пароли не совпадают');
+        }
+        else {
+            password2.css('borderColor', 'grey');
+            password2.attr('title', 'Введите пароль повторно');
+        }
+    })
+    </script>
 {% endblock %}

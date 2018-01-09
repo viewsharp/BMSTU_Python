@@ -72,6 +72,7 @@ class BookView(TemplateView):
         form = self.form_class()
         form.fields['book_id'].initial = id
         return render(request, self.template_name, {'book': Book.objects.get(id=id),
+                                                    'users': User.objects.all()[:10],
                                                     'form': form})
 
 

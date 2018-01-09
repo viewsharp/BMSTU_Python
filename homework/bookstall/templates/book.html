@@ -45,6 +45,13 @@
             </div>
         </div>
     </article>
+    <article class="container orders" style="padding: 60px; margin-top: 60px">
+    {% for u in users %}
+        <div>
+            <h5>{{ u.first_name }} {{ u.last_name }}</h5>
+        </div>
+    {% endfor %}
+    </article>
     <script>
         $('#send_order').click(function (event) {
             event.preventDefault();
