@@ -9,6 +9,7 @@ from django.views.generic.base import TemplateView
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from el_pagination.views import AjaxListView
 
 
 # import json
@@ -20,7 +21,7 @@ class FrontPage(TemplateView):
     template_name = "front.html"
 
 
-class SignUp(FormView):
+class SignUp(CreateView):
     template_name = 'sign_up.html'
     form_class = UserCreateForm
     success_url = '/store/'
@@ -45,10 +46,10 @@ class LogIn(FormView):
 
 
 @method_decorator(login_required, name='dispatch')
-class Store(ListView):
+class Store(AjaxListView):
     model = Book
     template_name = 'store.html'
-    paginate_by = 6
+    page_template = 'store_page.html'
 
     def get_context_data(self, **kwargs):
         context = super(Store, self).get_context_data(**kwargs)

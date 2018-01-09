@@ -1,0 +1,26 @@
+{% load el_pagination_tags %}
+
+{% paginate object_list %}
+
+{% for book in object_list %}
+    <li class="row boor-row">
+        <img class="col-2" src="/{{ book.image }}">
+        <div class="col">
+            <a href="{% url 'books' book.id %}"><h2>{{ book.title }}</h2></a>
+            <table>
+                <tr>
+                    <td>Автор:</td>
+                    <td>{{ book.author }}</td>
+                </tr>
+                <tr>
+                    <td>Год издания:</td>
+                    <td>{{ book.year }}</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+
+{% show_more %}

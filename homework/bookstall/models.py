@@ -14,7 +14,7 @@ class Author(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=64)
-    author = models.ForeignKey(Author)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='static/books')
     year = models.IntegerField(default= None)
     count = models.IntegerField(default= 0)

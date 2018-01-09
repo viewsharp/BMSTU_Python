@@ -16,27 +16,8 @@
             <div style="display: inline-block; padding: 3px; vertical-align: top;"><input type="checkbox" id="stock">
             </div>
         </div>
-        <ul class="container">
-            {% for book in object_list %}
-                <li class="row boor-row">
-                    <img class="col-2" src="/{{ book.image }}">
-                    <div class="col">
-                        <a href="{% url 'books' book.id %}"><h2>{{ book.title }}</h2></a>
-                        <table>
-                            <tr>
-                                <td>Автор:</td>
-                                <td>{{ book.author }}</td>
-                            </tr>
-                            <tr>
-                                <td>Год издания:</td>
-                                <td>{{ book.year }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </li>
-            {% empty %}
-                <li>No articles yet.</li>
-            {% endfor %}
+        <ul class="container" id="endless_page_template">
+            {% include page_template %}
         </ul>
         {% if is_paginated %}
             <div class="pagination">
@@ -88,5 +69,9 @@
             })
         });
 
+
     </script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{% static 'js/el-pagination.js' %}"></script>
+    <script>$.endlessPaginate({paginateOnScroll: true});</script>
 {% endblock %}

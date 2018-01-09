@@ -51,7 +51,8 @@
             var form = new FormData(document.getElementById('order_form'));
             fetch('/store/order', {
                 method: 'post',
-                body: form
+                body: form,
+                credentials: "same-origin"
             })
         });
     </script>
